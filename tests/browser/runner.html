@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>resizable tests</title>
+    <link rel='stylesheet' href='/node_modules/mocha/mocha.css'/>
+    <style>
+        html, body {
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+        .ks-resizable-proxy {
+            border: 1px dashed #426FD9;
+            position: absolute;
+        }
+        .ks-resizable-handler {
+            overflow: hidden;
+            font-size: 0;
+            line-height: 0;
+            position: absolute;
+        }
+
+        .ks-resizable-handler-b {
+            height: 5px;
+            width: 100%;
+            background-color: yellow;
+            bottom: 0;
+            left: 0;
+            cursor: n-resize;
+        }
+
+        .ks-resizable-handler-t {
+            height: 5px;
+            width: 100%;
+            background-color: yellow;
+            top: 0;
+            left: 0;
+            cursor: n-resize;
+        }
+
+        .ks-resizable-handler-l {
+            height: 100%;
+            -height: expression(this.parentNode.offsetHeight);
+            width: 5px;
+            background-color: yellow;
+            top: 0;
+            left: 0;
+            cursor: e-resize;
+        }
+
+        .ks-resizable-handler-r {
+            height: 100%;
+            -height: expression(this.parentNode.offsetHeight);
+            background-color: yellow;
+            width: 5px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: e-resize;
+        }
+
+        .ks-resizable-handler-bl {
+            height: 5px;
+            width: 5px;
+            background-color: green;
+            z-index: 1;
+            bottom: 0;
+            left: 0;
+            cursor: sw-resize;
+        }
+
+        .ks-resizable-handler-br {
+            height: 5px;
+            width: 5px;
+            z-index: 1;
+            background-color: green;
+            bottom: 0;
+            right: 0;
+            cursor: se-resize;
+        }
+
+        .ks-resizable-handler-tl {
+            height: 5px;
+            width: 5px;
+            z-index: 1;
+            background-color: green;
+            top: 0;
+            left: 0;
+            cursor: nw-resize;
+        }
+
+        .ks-resizable-handler-tr {
+            height: 5px;
+            width: 5px;
+            z-index: 1;
+            background-color: green;
+            top: 0;
+            right: 0;
+            cursor: ne-resize;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">resizable tests</h1>
+
+<div id='mocha'></div>
+<script src="/mx_modules/modulex-debug.js"></script>
+<script src="/mx_modules/ua-debug.js"></script>
+<script src="/mx_modules/feature-debug.js"></script>
+<script src="/mx_modules/meta.js"></script>
+<script src="/node_modules/simulate-dom-event/index.js"></script>
+<script src="/node_modules/async/lib/async.js"></script>
+<script src="/node_modules/node-jscover/lib/front-end/header.js"></script>
+<script src="/node_modules/node-jscover/lib/front-end/jscoverage-branch.js"></script>
+<script src='/node_modules/expect.js/index.js'></script>
+<script src='/node_modules/mocha/mocha.js'></script>
+<script src='/node_modules/node-jscover/lib/reporters/mocha/console.js'></script>
+<script src='/node_modules/node-jscover-coveralls/lib/reports/mocha.js'></script>
+<script>
+    function waits(ms) {
+        return function (next) {
+            setTimeout(next, ms);
+        };
+    }
+    function runs(fn) {
+        return function (next) {
+            if (fn.length) {
+                fn(next);
+            } else {
+                fn();
+                next();
+            }
+        };
+    }
+    mocha.setup('bdd');
+    var isBuild = location.href.indexOf('build') !== -1;
+    var isCoverage = location.search.indexOf('coverage') !== -1;
+    if (location.href.indexOf('__testling') !== -1) {
+        mocha.reporter('tap');
+    }
+</script>
+<script>
+    (function () {
+        modulex.config({
+            base: '/mx_modules',
+            packages: {
+                specs: {
+                    base: '/tests/browser/specs'
+                }
+            }
+        });
+
+        modulex.config({
+            packages: {
+                'resizable': {
+                    filter: isCoverage ? 'coverage' : isBuild ? 'debug' : '',
+                    base: isBuild ? '/build/resizable' : '/lib/resizable'
+                }
+            }
+        });
+
+        modulex.use(['specs/'], function () {
+            var runner;
+            if (window.mochaPhantomJS) {
+                runner = mochaPhantomJS.run();
+                if (isCoverage) {
+                    window.nodeJsCoverCoveralls(runner);
+                }
+            } else {
+                runner = mocha.run();
+            }
+        });
+    })();
+</script>
+</body>
+</html>

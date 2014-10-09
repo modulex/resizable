@@ -1,0 +1,25 @@
+{
+    "name": "modulex-resizable",
+    "author": "yiminghe <yiminghe@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/kissyteam/resizable.git"
+    },
+    "ignore": [
+        "**/*",
+        "!build/**/*",
+        "!lib/**/*",
+        "!meta/**/*",
+        "!index.js"
+    ],
+    "dependencies": {
+        "modulex": "modulex#master",
+        "modulex-feature": "modulex-feature#master",
+        "modulex-ua": "modulex-ua#master",
+        "modulex-base": "modulex-base#master",
+        "modulex-node": "modulex-node#master",
+        "modulex-dd": "modulex-dd#master",
+        "modulex-util": "modulex-util#master"
+    }
+}

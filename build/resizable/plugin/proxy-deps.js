@@ -1,0 +1,1 @@
+modulex.config("requires",{"resizable/plugin/proxy":["base","node"]});

@@ -1,0 +1,1 @@
+modulex.config("requires",{"resizable":["base","dd","util","node"]});
