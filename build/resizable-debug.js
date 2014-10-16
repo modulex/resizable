@@ -1,3 +1,8 @@
+/*
+Copyright 2014, modulex-resizable@1.0.1
+MIT Licensed
+build time: Thu, 16 Oct 2014 07:17:59 GMT
+*/
 modulex.add("resizable", ["base","dd","util","node"], function(require, exports, module) {
 var base = require("base");
 var _dd_ = require("dd");
@@ -338,6 +343,7 @@ resizable = function (exports) {
     TR: 'tr'
   };
   exports = Resizable;
+  Resizable.version = '1.0.1';
   return exports;
 }();
 module.exports = resizable;

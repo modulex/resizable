@@ -1,3 +1,8 @@
+/*
+Copyright 2014, modulex-resizable@1.0.1
+MIT Licensed
+build time: Thu, 16 Oct 2014 07:17:59 GMT
+*/
 modulex.add("resizable/plugin/proxy", ["base","node"], function(require, exports, module) {
 var base = require("base");
 var _node_ = require("node");
